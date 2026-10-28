@@ -34,6 +34,7 @@ footer{padding:16px;text-align:center;color:#5c6678;font-size:13px}
 <main>
 <h1>Intelligenz Welt - Analytics</h1>
 <p class="sub">Privates Dashboard. Letzte 30 Tage, aktualisiert alle 6 Stunden.</p>
+<p id="wait" style="display:none;color:#aab4c8">Das Dashboard wird gerade auf eine verschlüsselte Verbindung (HTTPS) umgestellt. Bitte später erneut über https:// aufrufen.</p>
 <form id="gate" autocomplete="on">
 <label for="pw" style="display:block;text-align:left;color:#aab4c8;font-size:14px;margin-bottom:6px">Passwort</label>
 <input id="pw" name="password" type="password" autocomplete="current-password" required>
@@ -60,7 +61,8 @@ async function derive(pw,salt){
   return crypto.subtle.deriveKey({name:"PBKDF2",salt:salt,iterations:600000,hash:"SHA-256"},km,{name:"AES-GCM",length:256},false,["decrypt"]);
 }
 const b64=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
-$("gate").addEventListener("submit",async e=>{
+if(location.protocol!=="https:"){$("gate").style.display="none";$("wait").style.display="block";}
+else $("gate").addEventListener("submit",async e=>{
   e.preventDefault();
   $("err").textContent="";
   try{
