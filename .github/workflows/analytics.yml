@@ -1,0 +1,29 @@
+name: Analytics snapshot
+on:
+  schedule:
+    - cron: "23 */6 * * *"
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install google-analytics-data cryptography
+      - name: Fetch GA4 data and encrypt
+        env:
+          GA4_SA_JSON: ${{ secrets.GA4_SA_JSON }}
+          GA4_PROPERTY_ID: ${{ secrets.GA4_PROPERTY_ID }}
+          DASHBOARD_PASSWORD: ${{ secrets.DASHBOARD_PASSWORD }}
+        run: python scripts/fetch_analytics.py
+      - name: Commit snapshot
+        run: |
+          git config user.name "analytics-bot"
+          git config user.email "analytics-bot@users.noreply.github.com"
+          git add data/analytics.json.enc
+          git diff --staged --quiet || git commit -m "chore: analytics snapshot $(date -u +%Y-%m-%dT%H:%MZ)"
+          git push
