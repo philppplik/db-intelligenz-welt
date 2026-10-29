@@ -54,7 +54,8 @@ function renderChart(d){
  const svg=$('chart');svg.replaceChildren();svg.setAttribute('aria-label',label);
  const ns='http://www.w3.org/2000/svg';const add=(tag,attrs,text)=>{const el=document.createElementNS(ns,tag);for(const [k,v]of Object.entries(attrs))el.setAttribute(k,String(v));if(text!==undefined)el.textContent=text;svg.append(el);return el;};
  const title=add('title',{},label);title.id='chart-title';svg.setAttribute('aria-labelledby','chart-title');
- const W=1000,H=240,L=34,R=12,T=15,B=18,max=Math.max(1,...ds.map(x=>x.value));
+ const W=window.innerWidth<560?340:1000,H=window.innerWidth<560?190:240,L=34,R=12,T=15,B=18,max=Math.max(3,Math.ceil(Math.max(1,...ds.map(x=>x.value))/3)*3);
+ svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
  for(let i=0;i<4;i++){const val=Math.ceil(max/3*(3-i)),y=T+(H-T-B)*i/3;add('line',{x1:L,x2:W-R,y1:y,y2:y,stroke:'#e8eef5','stroke-dasharray':i===3?'none':'3 5'});add('text',{x:L-9,y:y+4,fill:'#64748b','font-size':11,'text-anchor':'end'},fmt(val));}
  if(!ds.length){add('text',{x:W/2,y:H/2,fill:'#64748b','font-size':15,'text-anchor':'middle'},'Noch keine Daten im Snapshot.');$('chart-summary').textContent='Sobald Messdaten vorliegen, erscheint hier der Verlauf.';$('chart-start').textContent='';$('chart-end').textContent='';return;}
  const first=dateStamp(ds[0].date),last=dateStamp(ds[ds.length-1].date),span=Math.max(86400000,last-first);
@@ -65,3 +66,5 @@ function renderChart(d){
  $('chart-summary').textContent=`${label} · Höchster Tageswert: ${fmt(Math.max(...ds.map(x=>x.value)))} · ${ds.length} Tage mit Daten`;
  $('chart-start').textContent=dateLabel(ds[0].date);$('chart-end').textContent=dateLabel(ds[ds.length-1].date);
 }
+
+let resizeTimer;window.addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{if(currentData)renderChart(currentData);},100)});
