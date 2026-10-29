@@ -1,95 +1,33 @@
 <!doctype html>
 <html lang="de">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex,nofollow">
-<title>Dashboard - Intelligenz Welt</title>
-<style>
-:root{color-scheme:dark}
-body{margin:0;font:16px/1.5 system-ui,-apple-system,sans-serif;background:#0d1526;color:#e8ecf4}
-main{max-width:1100px;margin:0 auto;padding:48px 24px}
-h1{font-size:22px;font-weight:600;margin:0 0 8px}
-.sub{color:#aab4c8;margin:0 0 32px;font-size:14px}
-#gate{max-width:380px;margin:15vh auto 0;text-align:center}
-#gate input{width:100%;box-sizing:border-box;padding:12px 14px;border-radius:8px;border:1px solid #2a3752;background:#111c33;color:#e8ecf4;font-size:16px;margin-bottom:12px}
-#gate button{width:100%;background:#c9a84c;color:#0d1526;font-weight:600;padding:12px;border:0;border-radius:8px;font-size:16px;cursor:pointer}
-#gate button:hover{filter:brightness(1.1)}
-#err{color:#e0746a;font-size:14px;min-height:20px;margin-top:8px}
-#dash{display:none}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:32px}
-.card{background:#111c33;border-radius:12px;padding:20px}
-.card .v{font-size:28px;font-weight:700;color:#c9a84c}
-.card .l{color:#aab4c8;font-size:13px;margin-top:4px}
-section{background:#111c33;border-radius:12px;padding:20px;margin-bottom:24px}
-h2{font-size:15px;font-weight:600;margin:0 0 16px;color:#c9d4ea}
-table{width:100%;border-collapse:collapse;font-size:14px}
-td,th{text-align:left;padding:6px 8px;border-bottom:1px solid #1d2a45;color:#c9d4ea}
-td:last-child,th:last-child{text-align:right;font-variant-numeric:tabular-nums}
-svg{width:100%;height:auto;display:block}
-footer{padding:16px;text-align:center;color:#5c6678;font-size:13px}
-</style>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex,nofollow"><meta name="referrer" content="no-referrer"><title>Analytics | IntelligenzWelt</title>
+<link rel="icon" href="assets/logo.svg"><link rel="stylesheet" href="dashboard.css">
 </head>
 <body>
-<main>
-<h1>Intelligenz Welt - Analytics</h1>
-<p class="sub">Privates Dashboard. Letzte 30 Tage, aktualisiert alle 6 Stunden.</p>
-<p id="wait" style="display:none;color:#aab4c8">Das Dashboard wird gerade auf eine verschlüsselte Verbindung (HTTPS) umgestellt. Bitte später erneut über https:// aufrufen.</p>
-<form id="gate" autocomplete="on">
-<label for="pw" style="display:block;text-align:left;color:#aab4c8;font-size:14px;margin-bottom:6px">Passwort</label>
-<input id="pw" name="password" type="password" autocomplete="current-password" required>
-<button type="submit">Dashboard öffnen</button>
-<div id="err"></div>
-</form>
-<div id="dash">
-<div class="cards">
-<div class="card"><div class="v" id="kUsers">-</div><div class="l">Aktive Nutzer (30 Tage)</div></div>
-<div class="card"><div class="v" id="kSessions">-</div><div class="l">Sitzungen (30 Tage)</div></div>
-<div class="card"><div class="v" id="kViews">-</div><div class="l">Seitenaufrufe (30 Tage)</div></div>
+<a class="skip" href="#main">Zum Inhalt</a>
+<header><div class="wrap nav"><a class="brand" href="https://intelligenz-welt.de/"><img src="assets/logo.svg" width="32" height="32" alt=""><span>Intelligenz<b>Welt</b></span></a><span class="divider"></span><span class="workspace">Analytics</span><nav aria-label="Dashboard"><a class="site-link" href="https://intelligenz-welt.de/">Zum Magazin <span aria-hidden="true">↗</span></a><button id="lock" class="button ghost" hidden>Sperren <span aria-hidden="true">↗</span></button></nav></div></header>
+<div class="context-bar"><div class="wrap"><span class="private"><span class="dot"></span> PRIVATER REDAKTIONSBEREICH</span><span>Intelligenz-Welt · GA4</span></div></div>
+<main id="main" class="wrap">
+<div class="page-title"><div><p class="eyebrow">DAS MAGAZIN IN ZAHLEN</p><h1>Dein Blick auf die Reichweite.</h1><p class="lede">Leser verstehen. Inhalte weiterdenken.</p></div><div class="period"><span class="calendar" aria-hidden="true">▦</span><div><strong>Letzte 30 Tage bis heute</strong><small>Snapshot alle 6 Stunden</small></div></div></div>
+<p id="wait" hidden>Bitte öffne das Dashboard über eine verschlüsselte HTTPS-Verbindung.</p>
+<div id="gate-wrap" class="gate-layout">
+<section class="gate-story"><div class="story-icon" aria-hidden="true">IW<span>INSIGHTS</span></div><p class="eyebrow">WENIGER RAUSCHEN. MEHR ÜBERBLICK.</p><h2>Was bewegt deine Leser?</h2><p>Reichweite, meistgelesene Seiten und Besucherquellen. An einem Ort. Nur für dich.</p><div class="story-pills"><span>Reichweite</span><span>Inhalte</span><span>Quellen</span></div><div class="privacy-note"><span aria-hidden="true">◇</span><p><strong>Deine Daten bleiben privat.</strong><br>Verschlüsselt gespeichert. Erst in deinem Browser entschlüsselt.</p></div></section>
+<section class="gate-card"><span class="label">SICHERER ZUGANG</span><h2>Willkommen zurück.</h2><p>Öffne deine Analytics mit deinem Dashboard-Passwort.</p><form id="gate" autocomplete="on"><label for="pw">Passwort</label><div class="password-field"><input id="pw" name="password" type="password" autocomplete="current-password" required><button id="show-pw" type="button" aria-label="Passwort anzeigen" aria-pressed="false">Zeigen</button></div><button class="button primary" id="unlock" type="submit">Dashboard öffnen <span aria-hidden="true">→</span></button><p id="err" role="alert" aria-live="polite"></p></form><p class="gate-foot">Kein Google-Login nötig. Keine Tracking-Cookies.</p></section>
 </div>
-<section><h2>Nutzer pro Tag</h2><svg id="chart" viewBox="0 0 800 220" role="img" aria-label="Nutzer pro Tag"></svg></section>
-<section><h2>Top-Seiten</h2><table id="pages"></table></section>
-<section><h2>Top-Quellen</h2><table id="sources"></table></section>
+<div id="dash" hidden>
+<div class="dashboard-toolbar"><nav class="tabs" aria-label="Bereiche"><a class="active" href="#overview">Übersicht</a><a href="#content">Inhalte</a><a href="#traffic">Quellen</a></nav><p id="updated" class="updated"></p></div>
+<div id="overview" class="cards">
+<article class="metric"><div class="metric-top"><span>Nutzer-Tage</span><span class="metric-icon" aria-hidden="true">♙</span></div><strong id="kUsers">-</strong><p>Summe täglich aktiver Nutzer</p></article>
+<article class="metric"><div class="metric-top"><span>Sitzungen</span><span class="metric-icon" aria-hidden="true">↗</span></div><strong id="kSessions">-</strong><p>Besuche im erfassten Zeitraum</p></article>
+<article class="metric"><div class="metric-top"><span>Seitenaufrufe</span><span class="metric-icon" aria-hidden="true">▤</span></div><strong id="kViews">-</strong><p>Gelesene Seiten, inkl. Wiederholungen</p></article>
+</div>
+<section class="panel chart-panel"><div class="panel-head"><div><p class="eyebrow">ENTWICKLUNG</p><h2>Deine Reichweite im Verlauf</h2></div><label class="select-label">Kennzahl<select id="chart-metric"><option value="users">Aktive Nutzer pro Tag</option><option value="sessions">Sitzungen pro Tag</option><option value="views">Seitenaufrufe pro Tag</option></select></label></div><p id="chart-summary" class="chart-summary"></p><div class="chart-frame"><svg id="chart" viewBox="0 0 1000 240" role="img" aria-label="Aktive Nutzer pro Tag"></svg></div><div class="chart-foot"><span id="chart-start"></span><span id="chart-end"></span></div><p class="fineprint">Nutzer-Tage sind keine eindeutigen Nutzer über den Gesamtzeitraum: Wiederkehrende Leser können an mehreren Tagen gezählt werden.</p></section>
+<div class="detail-grid"><section id="content" class="panel"><div class="panel-head"><div><p class="eyebrow">INHALTE</p><h2>Meistgelesene Seiten</h2></div><span class="chip">Top 10</span></div><label class="search-label" for="page-search">Seiten durchsuchen</label><input id="page-search" class="search" type="search" placeholder="Seitenpfad filtern …" autocomplete="off"><div class="table-scroll"><table id="pages"><caption class="sr-only">Seiten nach Aufrufen</caption></table></div><p class="fineprint">Anteil an den angezeigten Top-Seiten, nicht am gesamten Traffic.</p></section>
+<section id="traffic" class="panel"><div class="panel-head"><div><p class="eyebrow">HERKUNFT</p><h2>Woher Leser kommen</h2></div><span class="chip">Top 10</span></div><div class="table-scroll"><table id="sources"><caption class="sr-only">Quellen nach Sitzungen</caption></table></div><p class="fineprint">„Direkt / unbekannt“ bedeutet: GA4 konnte keine Quelle zuordnen. Das ist nicht automatisch eine direkte Eingabe.</p></section></div>
+<aside class="data-note"><span aria-hidden="true">ⓘ</span><p><strong>Ein Ausschnitt, kein vollständiges Besucherbild.</strong> Die Statistik erfasst nur Besuche mit Einwilligung auf der Website. Kleine Zahlen und Datenverzögerungen sind möglich. Der heutige Tag ist noch nicht abgeschlossen.</p></aside>
 </div>
 </main>
-<footer>Daten nur verschlüsselt gespeichert; Entschlüsselung lokal im Browser. Es werden keine Cookies gesetzt und nichts gemessen.</footer>
-<script>
-const $=id=>document.getElementById(id);
-async function derive(pw,salt){
-  const enc=new TextEncoder();
-  const km=await crypto.subtle.importKey("raw",enc.encode(pw),"PBKDF2",false,["deriveKey"]);
-  return crypto.subtle.deriveKey({name:"PBKDF2",salt:salt,iterations:600000,hash:"SHA-256"},km,{name:"AES-GCM",length:256},false,["decrypt"]);
-}
-const b64=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
-if(location.protocol!=="https:"){$("gate").style.display="none";$("wait").style.display="block";}
-else $("gate").addEventListener("submit",async e=>{
-  e.preventDefault();
-  $("err").textContent="";
-  try{
-    const r=await fetch("data/analytics.json.enc",{cache:"no-store"});
-    if(!r.ok)throw new Error("Daten noch nicht verfügbar");
-    const p=await r.json();
-    const key=await derive($("pw").value,b64(p.salt));
-    const pt=await crypto.subtle.decrypt({name:"AES-GCM",iv:b64(p.iv)},key,b64(p.ct));
-    render(JSON.parse(new TextDecoder().decode(pt)));
-    $("gate").style.display="none";
-    $("dash").style.display="block";
-  }catch(_){$("err").textContent="Passwort falsch oder Daten nicht verfügbar.";}
-});
-function fmt(n){return n.toLocaleString("de-DE");}
-function render(d){
-  const ds=d.daily.map(r=>({date:r.d[0],users:r.m[0],sessions:r.m[1],views:r.m[2]}));
-  $("kUsers").textContent=fmt(ds.reduce((a,b)=>a+b.users,0));
-  $("kSessions").textContent=fmt(ds.reduce((a,b)=>a+b.sessions,0));
-  $("kViews").textContent=fmt(ds.reduce((a,b)=>a+b.views,0));
-  const W=800,H=220,P=30,max=Math.max(1,...ds.map(x=>x.users));
-  const pts=ds.map((x,i)=>[P+i*(W-2*P)/Math.max(1,ds.length-1),H-P-(x.users/max)*(H-2*P)]);
-  const line=pts.map((p,i)=>(i?"L":"M")+p[0].toFixed(1)+","+p[1].toFixed(1)).join(" ");
-  $("chart").innerHTML=`<path d="${line}" fill="none" stroke="#c9a84c" stroke-width="2"/><path d="${line} L${pts[pts.length-1][0]},${H-P} L${pts[0][0]},${H-P} Z" fill="#c9a84c22"/>`;
-  const tbl=(id,rows,a,b)=>{$(id).innerHTML=`<tr><th>${a}</th><th>${b}</th></tr>`+rows.map(r=>`<tr><td>${r.d[0].replace(/</g,"&lt;")}</td><td>${fmt(r.m[0])}</td></tr>`).join("");};
-  tbl("pages",d.pages,"Seite","Aufrufe");
-  tbl("sources",d.sources,"Quelle","Sitzungen");
-}
-</script>
-</body>
-</html>
+<footer><div class="wrap footer-main"><div><a class="brand" href="https://intelligenz-welt.de/"><img src="assets/logo.svg" alt="" width="30" height="30"><span>Intelligenz<b>Welt</b></span></a><p>KI verstehen. Zukunft mitdenken.</p></div><div><strong>Dein Analytics-Bereich</strong><p>Nur lokal entschlüsselt. Keine Messung<br>und keine Cookies in diesem Dashboard.</p></div><nav aria-label="Footer"><a href="https://intelligenz-welt.de/impressum/">Impressum</a><a href="https://intelligenz-welt.de/datenschutz/">Datenschutz</a><a href="https://intelligenz-welt.de/">Zum Magazin ↗</a></nav></div><div class="wrap footer-bottom"><span>© <span id="year"></span> Intelligenz-Welt</span><span>Privat · Verschlüsselt · Ohne Tracking</span></div></footer>
+<script src="dashboard.js"></script>
+</body></html>
